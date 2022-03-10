@@ -12,36 +12,7 @@ import java.util.Scanner;
         static Path pathToContacts = Paths.get("src/data", "contacts.txt");
 
         public static Scanner sc = new Scanner(System.in);
-//            try {
-//        System.out.println("Checking file system...");
-//        if (Files.notExists(pathToContacts)){
-//            Files.createFile(pathToContacts);
-//            System.out.println("Your file is created!");
-//        } else {
-//            System.out.println("The " + pathToContacts + " file already exists!");
-//        }
-//    } catch (IOException ioe) {
-//        System.out.println("There was a problem!");
-//        ioe.printStackTrace();
-//    }
-//        public static void initializeFiles()
-//        {
-//        Check directory. If it doesn't exist, create it. //
-//            Path pathToData = Paths.get("src/data");
-//            try {
-//                if (Files.notExists(pathToData)){
-//                    System.out.println("Creating directory...");
-//                    Files.createDirectories(pathToData);
-//                    System.out.println("Directory created!");
-//                } else {
-//                    System.out.println("The " + pathToData + " directory already exists!");
-//                }
-//            } catch (IOException ioe) {
-//                ioe.printStackTrace();
-//            }
 
-
-//        }
         public static void printAllContacts(Path filePath) throws IOException
         {
             System.out.println();
@@ -51,6 +22,7 @@ import java.util.Scanner;
                 System.out.printf("%d: %s\n", i + 1, fileContents.get(i));
             }
         }
+
         public static String appStart()
         {
 
@@ -63,18 +35,20 @@ import java.util.Scanner;
 
             return sc.nextLine();
         }
+
         public static void addContact() throws IOException {
             System.out.println("Enter Contact's full name: ");
             String userName = sc.next();
             System.out.println("Enter Contact's phone number: ");
             String userNumber = sc.next();
-            List<String> newContact = Arrays.asList(userName, userNumber);
+            String contact = userName + " " + userNumber;
+            List<String> newContact = Arrays.asList(contact);
             Files.write(pathToContacts, newContact, StandardOpenOption.APPEND);
 
         }
+
         public static void runConditionals(String s) throws IOException
         {
-
             switch (s)
             {
                 case "1":
@@ -101,9 +75,8 @@ import java.util.Scanner;
 
     public static void main(String[] args) throws IOException {
 
-//       appStart();
+
        runConditionals(appStart());
-//        System.out.println("pathToContacts = " + pathToContacts);
 
     }
 
