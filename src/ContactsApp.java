@@ -3,6 +3,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
@@ -72,8 +73,10 @@ import java.util.Scanner;
             String userName = sc.nextLine();
             System.out.println("Enter Contact's phone number: ");
             String userNumber = sc.nextLine();
-            String contact = userName + " " + userNumber;
-            List<String> newContact = Arrays.asList(contact);
+            String person = userName + " " + userNumber;
+            List<String> newContact = Arrays.asList(person);
+//            Contacts contact =  new Contacts(userName, userNumber);
+
             Files.write(pathToContacts, newContact, StandardOpenOption.APPEND);
 
         }
