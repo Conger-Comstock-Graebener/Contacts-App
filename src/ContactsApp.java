@@ -23,8 +23,7 @@ import java.util.Scanner;
             }
         }
 
-        public static String appStart()
-        {
+        public static void appStart() throws IOException {
 
             System.out.println("1. View contacts.");
             System.out.println("2. Add a new contact.");
@@ -33,50 +32,58 @@ import java.util.Scanner;
             System.out.println("5. Exit.");
             System.out.println("Enter an option (1, 2, 3, 4 or 5):");
 
-            return sc.nextLine();
+            String userInput = sc.nextLine();
+            switch (userInput)
+            {
+                case "1":
+                    printAllContacts(pathToContacts);
+                    System.out.println();
+                    appStart();
+                    break;
+                case "2":
+//                    todo add new contact
+                    addContact();
+                    System.out.println("Your contact was added!");
+                    System.out.println();
+                    appStart();
+                    break;
+
+                case "3":
+//                    todo seatch by name
+                    System.out.println();
+                    break;
+                case "4":
+//                    todo delete contact
+                    System.out.println();
+                    break;
+                case "5":
+                    System.exit(0);
+                    System.out.println();
+                default:
+                    System.out.println("Pick a number from 1 - 5 please");
+                    System.out.println();
+                    break;
+            }
         }
+
 
         public static void addContact() throws IOException {
             System.out.println("Enter Contact's full name: ");
-            String userName = sc.next();
+            String userName = sc.nextLine();
             System.out.println("Enter Contact's phone number: ");
-            String userNumber = sc.next();
+            String userNumber = sc.nextLine();
             String contact = userName + " " + userNumber;
             List<String> newContact = Arrays.asList(contact);
             Files.write(pathToContacts, newContact, StandardOpenOption.APPEND);
 
         }
 
-        public static void runConditionals(String s) throws IOException
-        {
-            switch (s)
-            {
-                case "1":
-                    printAllContacts(pathToContacts);
-                    break;
-                case "2":
-//                    todo add new contact
-                    addContact();
-                    System.out.println("Your contact was added!");
-                    break;
-                case "3":
-//                    todo seatch by name
-                    break;
-                case "4":
-//                    todo delete contact
-                    break;
-                case "5":
-                    System.exit(0);
-                default:
-                    System.out.println("Pick a number from 1 - 5 please");
-                    break;
-            }
-        }
+
 
     public static void main(String[] args) throws IOException {
 
 
-       runConditionals(appStart());
+       appStart();
 
     }
 
