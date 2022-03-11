@@ -22,16 +22,12 @@ public class ContactsApp
             System.out.println();
             List<Contacts> contactsList = createContactsObject();
             List<String> fileContents = Files.readAllLines(pathToContacts); // we need List as .readAllLines returns List datatype
-//            for (int i = 0; i < fileContents.size(); i++)
-//            {
                 System.out.println("");
                 System.out.printf("%-19s%s%s\n","Name", "| ", "Phone number");
                 System.out.println("--------------------------------");
                 for (Contacts contact :contactsList){
-//                System.out.println(contact.returnContacts());
                     System.out.printf( "%-19s%s%s\n", contact.getName(),"| ", contact.getNumber()  );
                 }
-//            }
         }
         public static List<Contacts> createContactsObject(){
             List<Contacts> contacts = new ArrayList<>();
@@ -101,7 +97,7 @@ public class ContactsApp
             List<String> newContact = Arrays.asList(person);
 //            Contacts contact =  new Contacts(userName, userNumber);
 
-//            Files.write(pathToContacts, newContact, StandardOpenOption.APPEND);
+            Files.write(pathToContacts, newContact, StandardOpenOption.APPEND);
 
         }
 
