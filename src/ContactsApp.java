@@ -1,3 +1,4 @@
+import javax.swing.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -22,7 +23,7 @@ public class ContactsApp {
 
             for (String contact : contactsList) {
                 Contacts contact1 = new Contacts(contact.substring(0, contact.lastIndexOf(" ")),
-                        contact.substring(contact.lastIndexOf(" ") + 1));
+                        contact.substring(contact.lastIndexOf(" ") + 1),ThreadColor.ANSI_GREEN);
                 contacts.add(contact1);
             }
         } catch (IOException ioe) {
@@ -38,7 +39,7 @@ public class ContactsApp {
         System.out.printf("%-19s%s%s\n", "Name", "| ", "Phone number");
         System.out.println("--------------------------------");
         for (Contacts contact : contactsList) {
-            System.out.printf("%-19s%s%s\n", contact.getName(), "| ", contact.getNumber());
+            System.out.printf( "%-19s%s%s\n", contact.getName(), "| ", contact.getNumber());
         }
     }
 
@@ -74,7 +75,7 @@ public class ContactsApp {
         List<String> newContactList = new ArrayList<>();
         try {
             for (String contact : originalContactList) {
-                if (!contact.contains(userInput)) {
+                if (!contact.toLowerCase().contains(userInput.toLowerCase())) {
                     newContactList.add(contact);
                 }
             }
@@ -130,6 +131,12 @@ public class ContactsApp {
 
     public static void main(String[] args) throws Exception {
 
+//        JFrame frame = new JFrame("My First GUI");
+//        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//        frame.setSize(300, 300);
+//        JButton button1 = new JButton("Press");
+//        frame.getContentPane().add(button1);
+//        frame.setVisible(true);
 
         appStart();
 
