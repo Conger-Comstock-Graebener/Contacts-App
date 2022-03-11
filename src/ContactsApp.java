@@ -6,6 +6,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
+import java.text.Format;
 import java.util.*;
 
 public class ContactsApp {
@@ -39,7 +40,7 @@ public class ContactsApp {
         System.out.printf("%-19s%s%s\n", "Name", "| ", "Phone number");
         System.out.println("--------------------------------");
         for (Contacts contact : contactsList) {
-            System.out.printf( "%-19s%s%s\n", contact.getName(), "| ", contact.getNumber());
+            System.out.printf( "%-19s%s%s\n", contact.getName(), "| ", contact.getNumber().replaceFirst("(\\d{3})(\\d{3})(\\d+)", "($1) $2-$3"));
         }
     }
 
