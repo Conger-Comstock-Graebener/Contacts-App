@@ -67,23 +67,23 @@ public class ContactsApp {
         }
     }
 
-    public static void deleteContact() throws IOException, NullPointerException {
+    public static void deleteContact() throws Exception {
         System.out.println("Enter the name of the contact you want to delete: ");
         String userInput = sc.nextLine();
-        List<String> fileContents = Files.readAllLines(pathToContacts);
+        List<String> originalContactList = Files.readAllLines(pathToContacts);
+        List<String> newContactList = new ArrayList<>();
         try {
-            for (String fileContent : fileContents) {
-                if (fileContent.toLowerCase().contains(userInput.toLowerCase())) {
-//                    Files.write(Path.of(fileContent.toLowerCase()), Collections.singleton(newContact));
-                    Files.delete(Path.of(fileContent.toLowerCase()));
-                    System.out.println("Your file was deleted.");
+            for (String contact : originalContactList) {
+                if (!contact.contains(userInput)) {
+                    newContactList.add(contact);
                 }
             }
-        } catch (IOException e) {
+        } catch (Exception e) {
             System.out.println("You didn't delete the file..." + e.getMessage());
-        } catch (NullPointerException e1) {
-            System.out.println("There is no such user: " + e1.getMessage());
         }
+
+        Files.write(pathToContacts, newContactList);
+        System.out.println("You have deleted the contact.");
     }
 
     public static void appStart() throws Exception {
