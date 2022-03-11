@@ -8,7 +8,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
-import static jdk.internal.org.jline.utils.Colors.s;
+//import static jdk.internal.org.jline.utils.Colors.s;
 
 public class ContactsApp
     {
@@ -22,8 +22,8 @@ public class ContactsApp
             System.out.println();
             List<Contacts> contactsList = createContactsObject();
             List<String> fileContents = Files.readAllLines(pathToContacts); // we need List as .readAllLines returns List datatype
-            for (int i = 0; i < fileContents.size(); i++)
-            {
+//            for (int i = 0; i < fileContents.size(); i++)
+//            {
                 System.out.println("");
                 System.out.printf("%-19s%s%s\n","Name", "| ", "Phone number");
                 System.out.println("--------------------------------");
@@ -31,7 +31,7 @@ public class ContactsApp
 //                System.out.println(contact.returnContacts());
                     System.out.printf( "%-19s%s%s\n", contact.getName(),"| ", contact.getNumber()  );
                 }
-            }
+//            }
         }
         public static List<Contacts> createContactsObject(){
             List<Contacts> contacts = new ArrayList<>();
