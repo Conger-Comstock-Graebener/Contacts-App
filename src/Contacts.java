@@ -1,6 +1,6 @@
 public class Contacts {
-    public String name;
-    public String number;
+    private String name;
+    private String number;
     public Contacts(){
 
     }

@@ -5,30 +5,14 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Scanner;
-
-//import static jdk.internal.org.jline.utils.Colors.s;
+import java.util.*;
 
 public class ContactsApp {
+
     static Path pathToContacts = Paths.get("src/data", "contacts.txt");
 
     public static Scanner sc = new Scanner(System.in);
     public static Contacts[] contactsList;
-
-    public static void printAllContacts(Path pathToContacts) throws IOException {
-        System.out.println();
-        List<Contacts> contactsList = createContactsObject();
-//            List<String> fileContents = Files.readAllLines(pathToContacts); // we need List as .readAllLines returns List datatype
-        System.out.println("");
-        System.out.printf("%-19s%s%s\n", "Name", "| ", "Phone number");
-        System.out.println("--------------------------------");
-        for (Contacts contact : contactsList) {
-            System.out.printf("%-19s%s%s\n", contact.getName(), "| ", contact.getNumber());
-        }
-    }
 
     public static List<Contacts> createContactsObject() {
         List<Contacts> contacts = new ArrayList<>();
@@ -47,7 +31,62 @@ public class ContactsApp {
         return contacts;
     }
 
-    public static void appStart() throws IOException {
+    public static void printAllContacts(Path pathToContacts) throws IOException {
+        System.out.println();
+        List<Contacts> contactsList = createContactsObject();
+        System.out.println("");
+        System.out.printf("%-19s%s%s\n", "Name", "| ", "Phone number");
+        System.out.println("--------------------------------");
+        for (Contacts contact : contactsList) {
+            System.out.printf("%-19s%s%s\n", contact.getName(), "| ", contact.getNumber());
+        }
+    }
+
+    public static void addContact() throws IOException {
+        System.out.println("Enter Contact's full name: ");
+        String userName = sc.nextLine();
+        System.out.println("Enter Contact's phone number: ");
+        String userNumber = sc.nextLine();
+        String person = userName + " " + userNumber;
+        List<String> newContact = Arrays.asList(person);
+        Files.write(pathToContacts, newContact, StandardOpenOption.APPEND);
+    }
+
+    public static void parseFile() throws Exception {
+        System.out.println("Enter the name of who you want to search for: ");
+        String userInput = sc.nextLine();
+        List<String> fileContents = Files.readAllLines(pathToContacts);
+        try {
+            for (String fileContent : fileContents) {
+                if (fileContent.toLowerCase().contains(userInput.toLowerCase())) {
+                    System.out.println(fileContent);
+                }
+            }
+        } catch (Exception e) {
+            System.out.println("You had a whoopsie " + e.getMessage());
+        }
+    }
+
+    public static void deleteContact() throws IOException, NullPointerException {
+        System.out.println("Enter the name of the contact you want to delete: ");
+        String userInput = sc.nextLine();
+        List<String> fileContents = Files.readAllLines(pathToContacts);
+        try {
+            for (String fileContent : fileContents) {
+                if (fileContent.toLowerCase().contains(userInput.toLowerCase())) {
+//                    Files.write(Path.of(fileContent.toLowerCase()), Collections.singleton(newContact));
+                    Files.delete(Path.of(fileContent.toLowerCase()));
+                    System.out.println("Your file was deleted.");
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("You didn't delete the file..." + e.getMessage());
+        } catch (NullPointerException e1) {
+            System.out.println("There is no such user: " + e1.getMessage());
+        }
+    }
+
+    public static void appStart() throws Exception {
         System.out.println("1. View contacts.");
         System.out.println("2. Add a new contact.");
         System.out.println("3. Search a contact by name.");
@@ -75,8 +114,9 @@ public class ContactsApp {
                 appStart();
                 break;
             case "4":
-//                    todo delete contact
+                deleteContact();
                 System.out.println();
+                appStart();
                 break;
             case "5":
                 System.exit(0);
@@ -88,62 +128,13 @@ public class ContactsApp {
         }
     }
 
-
-    public static void addContact() throws IOException {
-        System.out.println("Enter Contact's full name: ");
-        String userName = sc.nextLine();
-        System.out.println("Enter Contact's phone number: ");
-        String userNumber = sc.nextLine();
-        String person = userName + " " + userNumber;
-        List<String> newContact = Arrays.asList(person);
-//            Contacts contact =  new Contacts(userName, userNumber);
-
-        Files.write(pathToContacts, newContact, StandardOpenOption.APPEND);
-
-    }
-
-
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws Exception {
 
 
         appStart();
 
     }
-
-
-    public static void searchPerson() throws FileNotFoundException {
-
-        System.out.println("Enter the name of who you want to search for: ");
-        //            System.out.println((contact.getName());
-        String searchName = sc.nextLine();
-        int count = 0;
-        for (Contacts person : contactsList) {
-            if (person.getName().toLowerCase().contains(searchName.toLowerCase())) {
-                count++;
-                System.out.println("Contact " + count + ": " + person.returnContacts());
-            }
-        }
-        if (count == 0) {
-            System.out.println("Name not found.");
-        }
-    }
-
-    public static void parseFile() {
-        System.out.println("Enter the name of who you want to search for: ");
-            String line = sc.nextLine().toLowerCase();
-            for (Contacts person : contactsList) {
-                if (line.contains(person.getName())) {
-                    System.out.println(person.getName() + " " + person.getNumber());
-                }
-            }
-        }
-//
-//
-//    public static void main(String[] args) throws FileNotFoundException{
-
-//    }
-//
-    }
+}
 
 
 
